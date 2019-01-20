@@ -1,0 +1,212 @@
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\lv}{\left\langle}
+\newcommand{\rv}{\right\rangle}
+\newcommand{\mbf}[1]{\mathbf{#1}}
+\newcommand{\mat}[2][cccccccccccc]{\left(\begin{array}{#1}#2\\ \end{array}\right)}
+\newcommand{\mbflambda}{\mathbf{\lambda}}
+
+\newcommand{\pspace}{\mathbf{\Lambda}}
+\newcommand{\dspace}{\mathbf{\mathcal{D}}}
+\newcommand{\pmeas}{\mu_{\pspace}}
+\newcommand{\dmeas}{\mu_{\dspace}}
+\newcommand{\pborel}{\mathcal{B}_{\pspace}}
+\newcommand{\dborel}{\mathcal{B}_{\dspace}}
+\newcommand{\muD}[0]{\mu_{\mathbf{\mathcal{D}}}}
+
+\newcommand{\pspacedim}{k}
+\newcommand{\dspacedim}{m}
+
+\DeclareMathOperator*{\esssup}{ess\,sup}
+
+%%%% New macros for prior and posterior
+\newcommand{\cbprior}{initial}
+\newcommand{\cbpriorabrv}{i} % abbreviated version for superscripts
+\newcommand{\cbposterior}{updated}
+\newcommand{\cbposteriorabrv}{u} % abbreviated version for superscripts
+%%%%
+
+\newcommand{\priormeas}{P_{\pspace}^{{\cbpriorabrv}}}
+\newcommand{\postmeas}{P_{\pspace}^{{\cbposteriorabrv}}}
+\newcommand{\priordens}{\pi_{\pspace}^{{\cbpriorabrv}}}
+\newcommand{\postdens}{\pi_{\pspace}^{{\cbposteriorabrv}}}
+\newcommand{\postdensKDE}{\hat{\pi}_{\pspace}}%^{\text{\cbposteriorabrv}}}
+\newcommand{\pfpriormeas}{P_{\dspace}^{Q}}
+%\newcommand{\pfpostmeas}{P_{\dspace}^{Q(\text{\cbposteriorabrv})}}
+\newcommand{\pfpriordens}{\pi_{\dspace}^{Q}}
+\newcommand{\pfpriordensKDE}{\hat{\pi}_{\dspace}^{Q}}
+%\newcommand{\pfpostdens}{\pi_{\dspace}^{Q(\text{\cbposteriorabrv})}}
+\newcommand{\obsmeas}{P_{\dspace}^\mathrm{obs}}
+\newcommand{\obsdens}{\pi_{\dspace}^\mathrm{obs}}
+\newcommand{\postdenssbayes}{\tilde{\pi}_{\pspace}^{\text{post}}}
+
+\newcommand{\postdensa}{{\pi}_{\pspace}^{u,n}}
+\newcommand{\postdensaKDE}{\hat{\pi}_{\pspace}^{u,n}}
+\newcommand{\pfpriordensa}{{\pi}_{\dspace}^{{Q_n}}}
+\newcommand{\pfpriordensaKDE}{\hat{\pi}_{\dspace}^{{Q_n}}}
+%\newcommand{\pfpostdensa}{{\pi}_{\dspace}^{{Q_n}(\text{\cbposteriorabrv})}}
+%\newcommand{\pfpostdensaKDE}{\hat{\pi}_{\dspace}^{{Q_n}(\text{\cbposteriorabrv})}}
+\newcommand{\pfpriormeasa}{{P}_{\dspace}^{{Q_n}}}
+
+\newcommand{\inred}[1]{{\color{red} #1}}
+
+%% from sparse grid error analysis paper
+\def\bz{\mathbf{z}}
+\def\bu{\mathbf{u}}
+\def\bv{\mathbf{v}}
+\def\bw{\mathbf{w}}
+\def\sol{\bu}
+\def\solh{\bu_h}
+\def\solhn{\bu_{h,n}}
+\def\bx{\mathbf{x}}
+\newcommand{\bV}{\bm{V}}
+\newcommand{\bH}{\bm{H}}
+\newcommand{\ba}{\bm{a}}
+\newcommand{\Th}{{\cal T}_h}
+\newcommand{\intp}[2]{I_{#1}[#2]}
+\def\bl{\mathbf{l}}
+\def\bh{\mathbf{h}}
+%\def\bi{\mathbf{i}}
+\def\bj{\mathbf{j}}
+\def\bk{\mathbf{k}}
+\def\bn{\mathbf{n}}
+
+\def\bA{\mathbf{A}}
+\def\bxi{\boldsymbol{\xi}}
+
+\def\rv{\lambda}         % random variable
+\def\brv{\lambda}        % vector random variable
+\newcommand{\bzero}{\bm{0}}
+
+\def\qoi{Q(\lambda)}
+\def\qoia{{Q}_n(\lambda)}
+\def\ra{r_n(\lambda)}
+
+\def\ptqoih{JQh(\bxi_{\bl,\bi})}
+%\def\qoian{Q_{h,n}(\bxi)}
+%\def\qoiah{Q_{n}(\lambda)}
+\def\ptqoihn{Q_{h,n}(\bxi_{\bl,\bi})}
+%\def\qoiah{Q_{h,n}(\lambda)}
+
+\newcommand{\dom}{\pspace}
+
+\def\cI{\mathcal{I}}
+\def\cJ{\mathcal{J}}
+\def\cK{\mathcal{K}}
+\def\cL{\mathcal{L}}
+\def\be{\mathbf{e}}
+\def\boldf{\mathbf{f}}
+%\def\pdom{{\cal D}}
+\def\pdom{{\Omega}}
+\def\banach{L^{\infty}(0,T)\times \bH^1(\pspace)}
+\def\banachdual{W^*(\pspace)}
+\def\normsub{{L^\infty(\dom;\banach)}}
+
+\def\numpts{N}
+\def\numsamp{M}
+
+\def\sorder{r}
+\def\sgerror{C_{\pspacedim,\sorder}\numpts_n^{-\sorder}(\log \numpts)^{(\sorder+2)(\pspacedim-1)+1}}
+
+% from tim
+\newcommand{\pfpostdens}{\pi_{\dspace}^{Q,u}}
+\newcommand{\pfpostmeas}{P_{\dspace}^{Q,u}}
+
+% for leja
+% argmin, argmax
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+\newcommand{\cov}{{\normalfont \mathbb{C}\textrm{ov}}}
+\newcommand{\covF}[1]{\cov\left[#1\right]}
+\newcommand{\covm}{\bvec{C}}
+\newcommand{\covv}{\bvec{c}}
+\newcommand{\covvnorm}{\bvec{\bar{c}}}
+\newcommand{\covme}{\bvec{\hat{C}}} % covariance vector (HF,LF) of the estimators
+\newcommand{\covve}{\bvec{\hat{c}}} % covariance matrix (LF,LF) of the estimators
+\newcommand{\varlf}{\bvec{v}}       % vector of variances of lfs 
+
+\def\nvars{d}
+\def\varspace{\Omega}
+\def\ai{\alpha}
+\def\aindex{\bvec{\ai}}
+
+
+\newcommand{\nmodels}{M}
+\newcommand{\nhf}{N}
+%% \newcommand{\om}{\omega}
+%% \newcommand{\Om}{\Omega}
+\newcommand{\om}{z}
+\newcommand{\Om}{Z}
+\newcommand{\svec}{\vec{\om}}
+\newcommand{\Svec}{\vec{\Om}}
+\newcommand{\sset}[1]{\bvec{\om}_{#1}}
+\newcommand{\Sset}{\bvec{\Om}}
+
+\newcommand{\qoif}{Q} % random variable
+\newcommand{\cvqoi}{Q}   % qoi random variable
+\newcommand{\qspace}{\mathcal{Q}} % random variable space
+\newcommand{\meanbase}{\mu}
+\newcommand{\mean}[1]{\meanbase_{#1}}
+
+\newcommand{\cv}[1]{\cvqoi_{#1}}
+\newcommand{\est}[1]{\tilde{\cvqoi}_{#1}}
+\newcommand{\cvl}{{\normalfont \textrm{CV}}}
+\newcommand{\cvest}{\hat{\cvqoi}^{\cvl}}
+\newcommand{\mlwl}{{\normalfont \textrm{ml-w}}}
+\newcommand{\mll}{{\normalfont \textrm{MLMC}}}  
+\newcommand{\mfmc}{{\normalfont \textrm{MFMC}}} 
+\newcommand{\mlest}{\hat{\cvqoi}^{\mll}}
+\newcommand{\mlwest}{\hat{\cvqoi}^{{\normalfont \textrm{ml-w}}}}
+\newcommand{\mfmcest}{\hat{\cvqoi}^{\mfmc}}
+
+\newcommand{\acvl}{{\normalfont \textrm{ACV}}}
+%% \newcommand{\acvest}{\hat{\cvqoi}^{\acvl}}
+\newcommand{\acvest}{\tilde{\cvqoi}}
+\newcommand{\estm}[1]{\hat{\meanbase}_{#1}}
+\newcommand{\rat}{r}
+\newcommand{\cost}{w}
+
+\newcommand{\cvw}{\alpha}
+\newcommand{\optcvw}{\vec{\cvw}^{*}}
+\newcommand{\mfmccvw}{\vec{\cvw}^{\mfmc}}
+
+\newcommand{\optacvw}{\vec{\cvw}^{\acvl}}
+\newcommand{\acvone}{{\normalfont \textrm{ACV-}IS}} %acv-1
+\newcommand{\optacvone}{\vec{\cvw}^{\acvone}}
+\newcommand{\acvoneest}{\est{}^{\acvone}}
+\newcommand{\acvoneestK}{\est{K}^{\acvone}}
+
+\newcommand{\acvtwo}{{\normalfont \textrm{ACV-}MF}} %acv-2
+\newcommand{\optacvtwo}{\vec{\cvw}^{\acvtwo}}
+\newcommand{\acvtwoest}{\est{}^{\acvtwo}}
+\newcommand{\acvtwoestK}{\est{K}^{\acvtwo}}
+
+\newcommand{\Kacv}{{\normalfont \textrm{ACV-KL}}}
+\newcommand{\optKacv}{\vec{\cvw}^{\Kacv}}
+\newcommand{\Kacvest}{\est{}^{\Kacv}}
+
+\newcommand{\samp}{\mathbf{q}}
+
+%\newcommand{\cvdiff}[1]{\hat{q}_{#1}} % CV difference between Q and mu
+\newcommand{\cvdiff}[1]{\Delta_{#1}} % CV difference between Q and mu
+\newcommand{\absr}[1]{r_{#1}}         % absolute ration between the total LF and HF
+\newcommand{\relr}[1]{\bar{r}_{#1}}   % relative ratio between the local (Q or mu) LF evaluations 
+\newcommand{\rs}[1]{\tau_{#1}}        % ratio between the kth LF stdev and the one of the HF
+\newcommand{\ccoeff}[1]{\rho_{#1}}  
+\newcommand{\card}[1]{\normalfont \textrm{card}\!\left(#1\right)} % cardinality of a set
+\newcommand{\Diag}[1]{\normalfont \mathrm{diag}\left(#1\right)}
+
+\newcommand{\covdiff}{\covF{\vec{\cvdiff{}},\vec{\cvdiff{}}}} % covariance of the control variates
+\newcommand{\covdiffij}[2]{\covF{\cvdiff{#1},\cvdiff{#2}}} % covariance of the control variates
+\newcommand{\covhc}{\covF{\vec{\cvdiff{}},\est{}}}              % covariance between qoi and cv
+
+\newcommand{\fmat}{{\bm{F}}}
+\newcommand{\fmatone}{{\bm{F}^{(IS)}}}
+\newcommand{\fmattwo}{{\bm{F}^{(MF)}}} 

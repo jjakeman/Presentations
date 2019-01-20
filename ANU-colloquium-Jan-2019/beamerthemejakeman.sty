@@ -1,0 +1,35 @@
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+\usepackage{pgfplots}
+\pgfdeclarelayer{shadow} 
+\pgfsetlayers{shadow,main}
+
+\newif\ifmy@blackbackground
+\DeclareOption{blackbackground}{\my@blackbackgroundtrue}
+\DeclareOption{whitebackground}{\my@blackbackgroundfalse}
+\ExecuteOptions{whitebackground}
+
+\newif\ifmy@headerlogo
+\DeclareOption{headerlogo}{\my@headerlogotrue}
+\DeclareOption{noheaderlogo}{\my@headerlogofalse}
+\ExecuteOptions{noheaderlogo}
+
+\ProcessOptions\relax
+
+\setbeamertemplate{navigation symbols}{}
+
+
+\newcommand\@sectionpagefigure{}
+\newcommand\sectionpagefigure[1]{\renewcommand\@sectionpagefigure{#1}}
+
+
+% Settings
+\useinnertheme{jakeman}
+\usecolortheme{jakeman}
+\useoutertheme{jakeman}
+\usefonttheme{jakeman}
+
+\mode
+<all>

@@ -1,0 +1,218 @@
+\mode<presentation>
+
+\setbeamertemplate{background}{
+  \begin{tikzpicture}
+  \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+  \fill[color=lightblue] (0,2) rectangle (\the\paperwidth,\the\paperheight);
+  \fill[color=midblue] (0,0) rectangle(2.95,1.9);
+  \fill[color=darkblue] (3.05,0) rectangle(\the\paperwidth,1.9);
+  \ifnum\thepage>1\relax%
+    \ifmy@blackbackground
+      \fill[black,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    \else
+      \fill[white,opacity=1] (0,0) rectangle(\the\paperwidth,\the\paperheight); 
+     \fi
+   \fi
+  \end{tikzpicture}
+}
+
+% Title page
+\defbeamertemplate*{title page}{jakeman}[1][]
+{
+   \vskip.5cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,sep=0pt,#1]{title page header}
+      \usebeamerfont{title}\Large\inserttitle%
+    \end{beamercolorbox}%
+    \vskip.5cm
+    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,sep=0pt,#1]{author}
+      \usebeamerfont{author}\footnotesize\insertauthor%
+    \end{beamercolorbox}
+    \vskip0.2cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,sep=0pt,#1]{institute}
+      \usebeamerfont{author}\footnotesize\insertinstitute
+    \end{beamercolorbox}
+    \vskip0.2cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,sep=0pt,#1]{date}
+      \usebeamerfont{author}\footnotesize\insertdate%
+    \end{beamercolorbox}
+    %\vskip.05cm%
+    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,sep=0pt,#1]{subtitle}
+      \usebeamerfont{author}\tiny\insertsubtitle%
+    \end{beamercolorbox}
+    %\vspace{-1.2cm}\hspace{0.1cm}
+    %\includegraphics[height=32pt]{doe-logo.png}
+    \vfill
+  }
+
+  \usefonttheme[onlymath]{serif}% needed to change font of equations
+
+% apply parskip to columns which latex cretaes using minipage
+% \makeatletter
+% \newcommand{\@minipagerestore}{\setlength{\parskip}{\baselineskip}}
+% \makeatother
+
+% allow notes in PDF
+\usepackage{pgfpages}
+
+% Items
+\setbeamertemplate{items}[square]
+\setbeamertemplate{sections/subsections in toc}[square]
+
+\setbeamersize{text margin left=20pt,text margin right=20pt}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% DRAW ROUNDED BOX WITH SHADOW AROUND FIGURE
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{shadows,fadings}
+
+\tikzstyle{mybox} = [fill=white, rectangle , rounded corners]
+\def\shadowshift{ 0pt,0pt}
+\def\shadowradius{10pt}
+% [fill=blue,rectangle,rounded corners,minimum height=2cm,minimum width=2cm]
+%this draws a shadow under a rectangle node
+\definecolor{shadowcolor}{gray}{0.}
+\newcommand\drawshadow[1]{
+    \begin{pgfonlayer}{shadow}
+        \shade[white,inner color=shadowcolor,outer color=white] ($(#1.south west)+(\shadowshift)+(\shadowradius/2,\shadowradius/2)$) circle (\shadowradius);
+        \shade[white,inner color=shadowcolor,outer color=white] ($(#1.north west)+(\shadowshift)+(\shadowradius/2,-\shadowradius/2)$) circle (\shadowradius);
+        \shade[white,inner color=shadowcolor,outer color=white] ($(#1.south east)+(\shadowshift)+(-\shadowradius/2,\shadowradius/2)$) circle (\shadowradius); %shade bottom right corner with circle
+        \shade[white,inner color=shadowcolor,outer color=white] ($(#1.north east)+(\shadowshift)+(-\shadowradius/2,-\shadowradius/2)$) circle (\shadowradius); %shade rounded top right with circle
+        \shade[top color=shadowcolor,bottom color=white] ($(#1.south west)+(\shadowshift)+(\shadowradius/2,-\shadowradius/2)$) rectangle ($(#1.south east)+(\shadowshift)+(-\shadowradius/2,\shadowradius/2)$);
+        \shade[left color=shadowcolor,right color=white] ($(#1.south east)+(\shadowshift)+(-\shadowradius/2,\shadowradius/2)$) rectangle ($(#1.north east)+(\shadowshift)+(\shadowradius/2,-\shadowradius/2)$);%shade bottom of box
+        \shade[bottom color=shadowcolor,top color=white] ($(#1.north west)+(\shadowshift)+(\shadowradius/2,-\shadowradius/2)$) rectangle ($(#1.north east)+(\shadowshift)+(-\shadowradius/2,\shadowradius/2)$);%shade top of box
+        \shade[white,right color=shadowcolor,left color=white] ($(#1.south west)+(\shadowshift)+(-\shadowradius/2,\shadowradius/2)$) rectangle ($(#1.north west)+(\shadowshift)+(\shadowradius/2,-\shadowradius/2)$);
+        \filldraw ($(#1.south west)+(\shadowshift)+(\shadowradius/2,\shadowradius/2)$) rectangle ($(#1.north east)+(\shadowshift)-(\shadowradius/2,\shadowradius/2)$);
+    \end{pgfonlayer}
+}
+
+\newenvironment{boxgraphics}[2]{
+\def\shadowradius{10pt}
+\begin{tikzpicture}
+\node [mybox] (box){
+  \includegraphics[width=#1\textwidth]{#2}
+};
+\drawshadow{box}
+\end{tikzpicture}
+}{}
+
+%%%%%%%%%%%%%
+% Produce equation with less vertical white space
+\newenvironment{shrinkeq}[2]
+{ \bgroup
+  \addtolength\abovedisplayshortskip{#2}
+  \addtolength\abovedisplayskip{#2}
+  \addtolength\belowdisplayshortskip{#1}
+  \addtolength\belowdisplayskip{#1}}
+{\egroup\ignorespacesafterend}
+
+\newcommand{\gbox}[2]{\begin{center}\begin{boxgraphics}{#1}{#2}\end{boxgraphics}\end{center}}
+\newcommand{\gboxes}[3]{\begin{center}\begin{tikzpicture}\node[mybox](box){\includegraphics[width=#3\textwidth]{#1}\hspace{0.01\textwidth}\includegraphics[width=#3\textwidth]{#2}\hspace{0.01\textwidth}};\drawshadow{box}\end{tikzpicture}\end{center}}
+
+\newcommand{\gboxesfour}[5]{
+\begin{center}\begin{tikzpicture}\node[mybox](box){
+\begin{tabular}{cc}\includegraphics[width=#5\textwidth]{#1} & \includegraphics[width=#5\textwidth]{#2} \\
+\includegraphics[width=#5\textwidth]{#3} &
+\includegraphics[width=#5\textwidth]{#4} 
+\end{tabular}};\drawshadow{box}\end{tikzpicture}\end{center}}
+
+\newcommand{\sheq}[3]{\begin{shrinkeq}{-#2 pt}{-#3 pt}\[#1\]\end{shrinkeq}}
+
+%\usepackage{changepage}
+
+% \setbeamertemplate{block begin}{
+% 	\vskip\baselineskip
+% 	\begin{beamercolorbox}[wd=\textwidth, ht=0.5cm, dp=0.2cm, leftskip=0.2cm, rightskip=0.2cm]{block title}%
+% 		\usebeamerfont*{block title}{\rule[-0.4ex]{0mm}{2ex}\insertblocktitle}%
+% 	\end{beamercolorbox}%
+% 	{\nointerlineskip\vskip-0.5pt}%
+% 	\usebeamerfont{block body}%
+% 	\begin{beamercolorbox}[wd=\textwidth, leftskip=0.2cm, rightskip=0.2cm, dp=0.2cm]{block body}%
+%     \vskip-.75ex\vbox{}%
+% }
+% \setbeamertemplate{block end}{
+% 	\end{beamercolorbox}
+%}
+
+%\setbeamertemplate{blocks}[rounded][shadow=true]
+%\setbeamertemplate{blocks}[rounded=false,shadow=false]
+
+% only necessary if parskip set globally
+% \addtobeamertemplate{block begin}
+%   {}
+%   {\vspace{-10pt} % Pads top of block
+%      % separates paragraphs in a block
+%    \setlength{\parskip}{10pt}%
+% }
+% \addtobeamertemplate{block end}
+%   {\vspace{5pt}}% Pads bottom of block
+%  {\vspace{0pt}} % Seperates blocks from each other
+
+
+%  \addtobeamertemplate{block alerted begin}
+%   {}
+%   {\vspace{-15pt} % Pads top of alerted block
+%      % separates paragraphs in a alerted block
+%    \setlength{\parskip}{10pt}%
+% }
+% \addtobeamertemplate{block alerted end}
+%   {\vspace{-5pt}}% Pads bottom of alerted block
+%  {\vspace{0pt}} % Seperates alerted blocks from each other
+
+%  \addtobeamertemplate{block example begin}
+%   {}
+%   {\vspace{-15pt} % Pads top of example block
+%      % separates paragraphs in a example block
+%    \setlength{\parskip}{10pt}%
+% }
+% \addtobeamertemplate{block example end}
+%   {\vspace{-5pt}}% Pads bottom of example block
+% {\vspace{0pt}} % Seperates example blocks from each other
+
+
+% \addtobeamertemplate{theorem begin}
+%   {}
+%   {\vspace{0pt} % Pads top of theorem block
+%      % separates paragraphs in a theorem block
+%    \setlength{\parskip}{10pt}%
+% }
+% \addtobeamertemplate{theorem end}
+%   {\vspace{-15pt}}% Pads bottom of theorem block
+% {\vspace{0pt}} % Seperates theorem blocks from each other
+
+ \newenvironment<>{mynote}[0]{%
+   \setlength{\parskip}{5pt}
+   \setbeamercolor{postit}{fg=black,bg=gray!15} \begin{beamercolorbox}[rounded=false,shadow=false,wd=1.02\textwidth,leftskip=0.01\textwidth,rightskip=0.01\textwidth,dp=5pt]{postit}}{\end{beamercolorbox} }
+
+ \defbeamertemplate{section page}{simple}{
+  \begin{center}
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\par
+    \ifx\insertsubsectionhead\@empty\else
+      \usebeamercolor[fg]{subsection title}
+      \usebeamerfont{subsection title}
+      \insertsubsectionhead
+      \fi
+      \begin{tikzpicture}
+        \fill[darkblue] (0,0) rectangle (\textwidth, 2pt);
+      \end{tikzpicture}%
+      \ifx\sectionpagefigure\@empty\else
+      \begin{center}
+        \includegraphics[width=0.8\textwidth]{\@sectionpagefigure}
+      \end{center}
+      \fi
+    \end{center}
+  }
+  
+\setbeamertemplate{section page}[simple]
+\AtBeginSection{
+    \ifbeamer@inframe
+      \sectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\sectionpage}
+    \fi
+  }
+
+\mode
+<all>
